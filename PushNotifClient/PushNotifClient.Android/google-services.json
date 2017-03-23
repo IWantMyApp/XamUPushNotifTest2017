@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "739746365528",
+    "firebase_url": "https://pushnotifproj2017.firebaseio.com",
+    "project_id": "pushnotifproj2017",
+    "storage_bucket": "pushnotifproj2017.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:739746365528:android:39a0e86522e8a875",
+        "android_client_info": {
+          "package_name": "com.xamarin.pushnotiftest2017"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "739746365528-v0t58je1cium8ht2k5l86ijnhrce4m03.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYwnnad2nO8OB7QugkxkaVPlkDzn6-lvk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

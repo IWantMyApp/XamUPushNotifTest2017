@@ -10,15 +10,6 @@ namespace PushNotifClient.iOS
 	public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
 	{
 		App formsApp;
-
-		//public override bool FinishedLaunching(UIApplication app, NSDictionary options)
-		//{
-		//	global::Xamarin.Forms.Forms.Init();
-		//	LoadApplication(new App());
-
-		//	return base.FinishedLaunching(app, options);
-		//}
-
 		
 		public override bool FinishedLaunching(UIApplication nativeApp, NSDictionary options)
 		{
