@@ -15,7 +15,8 @@ namespace PushNotifClient.Droid
 	/// It will be triggered by Android; we don't start it directly.
 	/// For details on when and how this will be called: https://developers.google.com/instance-id/guides/android-implementation
 	/// </summary>
-	[Service(Exported = false)]
+	[Preserve]
+	[Service]
 	[IntentFilter(new[] { "com.google.firebase.INSTANCE_ID_EVENT" })]
 	public class FcmInstanceIdListenerService : FirebaseInstanceIdService
 	{
@@ -39,7 +40,16 @@ namespace PushNotifClient.Droid
 		{
 			try
 			{
-				const string templateBodyGCM = "{\"data\":{\"message\":\"$(messageParam)\"}}";
+				// Formats: https://firebase.google.com/docs/cloud-messaging/concept-options
+				// The "notification" format will automatically displayed in the notification center if the 
+				// app is not in the foreground.
+				const string templateBodyGCM =
+					"{" +
+						"\"notification\" : {" +
+						"\"body\" : \"$(messageParam)\"," +
+	  					"\"title\" : \"Xamarin University\"," +
+						"\"icon\" : \"myicon\" }" +
+					"}";
 
 				var templates = new JObject();
 				templates["genericMessage"] = new JObject

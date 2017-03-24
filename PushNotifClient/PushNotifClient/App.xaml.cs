@@ -31,6 +31,16 @@ namespace PushNotifClient
 			return client;
 		}, true);
 
+
+		public void ShowNotification(string msg)
+		{
+			Device.BeginInvokeOnMainThread(() =>
+			{
+				var page = (MainPage)MainPage;
+				page.Update("Received: " + msg);
+			});
+		}
+
 		protected override void OnStart ()
 		{
 			// Handle when your app starts

@@ -126,8 +126,7 @@ namespace PushNotifClient.iOS
 			// Show alert
 			if (!string.IsNullOrEmpty(alert))
 			{
-				var alertView = new UIAlertView("Notification", alert, null, "OK", null);
-				alertView.Show();
+				((App)App.Current).ShowNotification(alert);
 			}
 		
 			// We must call the completion handler as soon as possible, max. after 30 seconds, otherwise the app gets terminated.
