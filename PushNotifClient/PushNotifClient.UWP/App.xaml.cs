@@ -1,12 +1,16 @@
-﻿using System;
+﻿using Microsoft.WindowsAzure.MobileServices;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Networking.PushNotifications;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -37,14 +41,14 @@ namespace PushNotifClient.UWP
 		/// will be used such as when the application is launched to open a specific file.
 		/// </summary>
 		/// <param name="e">Details about the launch request and process.</param>
-		protected override void OnLaunched(LaunchActivatedEventArgs e)
+		protected async override void OnLaunched(LaunchActivatedEventArgs e)
 		{
 
 #if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                this.DebugSettings.EnableFrameRateCounter = true;
-            }
+			if (System.Diagnostics.Debugger.IsAttached)
+			{
+				this.DebugSettings.EnableFrameRateCounter = true;
+			}
 #endif
 
 			Frame rootFrame = Window.Current.Content as Frame;
@@ -67,6 +71,8 @@ namespace PushNotifClient.UWP
 
 				// Place the frame in the current Window
 				Window.Current.Content = rootFrame;
+
+				
 			}
 
 			if (rootFrame.Content == null)
@@ -78,6 +84,7 @@ namespace PushNotifClient.UWP
 			}
 			// Ensure the current window is active
 			Window.Current.Activate();
+			await InitNotificationsAsync();
 		}
 
 		/// <summary>
@@ -102,6 +109,40 @@ namespace PushNotifClient.UWP
 			var deferral = e.SuspendingOperation.GetDeferral();
 			//TODO: Save application state and stop any background activity
 			deferral.Complete();
+		}
+
+		private async Task InitNotificationsAsync()
+		{
+			var channel = await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
+			channel.PushNotificationReceived += OnPushNotificationReceived;
+			const string templateBodyWNS =
+				"<toast>" +
+				"<visual>" +
+				"<binding template=\"ToastText01\">" +
+				"<text id=\"1\">$(messageParam)</text>" +
+				"</binding>" +
+				"</visual>"+
+				"</toast>";
+
+			var headers = new JObject();
+			headers["X-WNS-Type"] = "wns/toast";
+
+			JObject templates = new JObject();
+			templates["genericMessage"] = new JObject
+			 {
+				 {"body", templateBodyWNS},
+				 {"headers", headers} // Needed for WNS.
+			 };
+
+			var pushApp = (PushNotifClient.App)PushNotifClient.App.Current;
+			var client = pushApp.MobileSvcClient;
+			var push = client.GetPush();
+			await push.RegisterAsync(channel.Uri, templates);
+		}
+
+		private void OnPushNotificationReceived(PushNotificationChannel sender, PushNotificationReceivedEventArgs args)
+		{
+			((PushNotifClient.App)(PushNotifClient.App.Current)).ShowNotification(args.ToastNotification.Content.InnerText.Trim());
 		}
 	}
 }
