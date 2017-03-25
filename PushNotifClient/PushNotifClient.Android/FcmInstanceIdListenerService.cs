@@ -43,7 +43,7 @@ namespace PushNotifClient.Droid
 				// Formats: https://firebase.google.com/docs/cloud-messaging/concept-options
 				// The "notification" format will automatically displayed in the notification center if the 
 				// app is not in the foreground.
-				const string templateBodyGCM =
+				const string templateBodyFCM =
 					"{" +
 						"\"notification\" : {" +
 						"\"body\" : \"$(messageParam)\"," +
@@ -54,7 +54,7 @@ namespace PushNotifClient.Droid
 				var templates = new JObject();
 				templates["genericMessage"] = new JObject
 				{
-					{"body", templateBodyGCM}
+					{"body", templateBodyFCM}
 				};
 
 				await push.RegisterAsync(token, templates);
