@@ -4,8 +4,10 @@
              xmlns:local="clr-namespace:PushNotifClient"
              x:Class="PushNotifClient.MainPage">
 
+	<StackLayout VerticalOptions="Center">
 	<Label x:Name="lbl" Text="Welcome to Xamarin Forms!" 
            VerticalOptions="Center" 
            HorizontalOptions="Center" />
-
+		<Entry x:Name="txt" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="300"/>
+	</StackLayout>
 </ContentPage>

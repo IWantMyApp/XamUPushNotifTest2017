@@ -37,7 +37,7 @@ namespace PushNotifClient
 			Device.BeginInvokeOnMainThread(() =>
 			{
 				var page = (MainPage)MainPage;
-				page.Update("Received: " + msg);
+				page.Update("Received: " + msg, MobileSvcClient.InstallationId);
 			});
 		}
 

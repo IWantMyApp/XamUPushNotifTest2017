@@ -14,9 +14,10 @@ namespace PushNotifClient
 			InitializeComponent();
 		}
 
-		public void Update(string text)
+		public void Update(string text, string installationId)
 		{
 			lbl.Text = text;
+			txt.Text = installationId;
 		}
 	}
 }

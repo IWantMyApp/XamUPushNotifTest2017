@@ -3,7 +3,6 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using Microsoft.Azure.Mobile.Server;
 using Microsoft.Azure.Mobile.Server.Tables;
-using PushNotif2017.DataObjects;
 
 namespace PushNotif2017.Models
 {
@@ -25,8 +24,6 @@ namespace PushNotif2017.Models
 		public MobileServiceContext() : base(connectionStringName)
 		{
 		}
-
-		public DbSet<TodoItem> TodoItems { get; set; }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
